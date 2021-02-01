@@ -66,33 +66,39 @@ probability_any_distribution <- function(f, dist_name, center, offset, step=0.01
   }
 }
 
-clear_plots()
 # Exemple:
 
-#probability_any_distribution(
-#  f=function(x) { return(density_exponential_distribution(x, lambda=1)) },
-#  cdf=function(x) { return(cdf_exponential_distribution(x, lambda=1)) },
-#  dist_name="repartitia exponentiala",
-#  center=0,
-#  offset=20
-#)
+clear_plots()
+probability_any_distribution(
+  f=function(x) { return(density_exponential_distribution(x, lambda=1)) },
+  cdf=function(x) { return(cdf_exponential_distribution(x, lambda=1)) },
+  dist_name="repartitia exponentiala",
+  center=0,
+  offset=20
+)
+
+clear_plots()
 # Exponentiala fara CDF
-#probability_any_distribution(
-#  f=function(x) { return(density_exponential_distribution(x, lambda=1)) },
-#  dist_name="repartitia exponentiala",
-#  center=0,
-#  offset=20
-#)
-#probability_any_distribution(
-#  f=function(x) { return(density_gamma_distribution(x, shape=2, scale=1/2)) },
-#  cdf=function(x) { return(cdf_gamma_distribution(x, shape=2, scale=1/2)) },
-#  dist_name="repartitia gamma",
-#  center=0,
-#  offset=20
-#)
-#probability_any_distribution(
-#  f=function(x) { return(density_normal_distribution(x, m=5, sd=3)) },
-#  dist_name="repartitia normala",
-#  center=0,
-#  offset=20
-#)
+probability_any_distribution(
+  f=function(x) { return(density_exponential_distribution(x, lambda=1)) },
+  dist_name="repartitia exponentiala",
+  center=0,
+  offset=20
+)
+
+clear_plots()
+probability_any_distribution(
+  f=function(x) { return(density_gamma_distribution(x, shape=2, scale=1/2)) },
+  cdf=function(x) { return(cdf_gamma_distribution(x, shape=2, scale=1/2)) },
+  dist_name="repartitia gamma",
+  center=0,
+  offset=20
+)
+
+clear_plots()
+probability_any_distribution(
+  f=function(x) { return(density_normal_distribution(x, m=5, sd=3)) },
+  dist_name="repartitia normala",
+  center=0,
+  offset=20
+)
