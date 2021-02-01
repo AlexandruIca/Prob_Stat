@@ -28,3 +28,6 @@
 *.synctex.gz
 *.synctex.gz(busy)
 *.pdfsync
+
+*.RData
+*.Rhistory
