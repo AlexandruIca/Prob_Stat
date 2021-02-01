@@ -89,7 +89,7 @@ probability_any_distribution(
 clear_plots()
 probability_any_distribution(
   f=function(x) { return(density_gamma_distribution(x, shape=2, scale=1/2)) },
-  cdf=function(x) { return(cdf_gamma_distribution(x, shape=2, scale=1/2)) },
+  cdf=function(x) { return(cdf_gamma_distribution(x, shape_=2, scale_=1/2)) },
   dist_name="repartitia gamma",
   center=0,
   offset=20
