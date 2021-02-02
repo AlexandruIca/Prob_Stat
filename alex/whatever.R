@@ -1,3 +1,7 @@
+##########################################################
+# Cerinta 4
+##########################################################
+
 # Helper pentru a sterge graficele din 'Plots' in Rstudio
 clear_plots <- function() {
   if(!is.null(dev.list())) {
@@ -102,3 +106,38 @@ probability_any_distribution(
   center=0,
   offset=20
 )
+
+##########################################################
+# Cerinta 3
+##########################################################
+
+# S4 class
+# https://www.datacamp.com/community/tutorials/r-objects-and-classes
+setClass("continuous_rv", representation(outcome_from="numeric", outcome_to="numeric", density_fn="function"))
+
+# Am pus un x - x inutil pentru a evita erorile de genul:
+#   "Unused argument 'x'"
+# atunci cand nu se da densitatea explicit
+RV <- function(from=0, to=Inf, density=function(x) { if(is.infinite(from) || is.infinite(to)) NULL else 1 / (to - from + 1) + (x - x) }) {
+  return(new("continuous_rv", outcome_from=from, outcome_to=to, density_fn=density))
+}
+
+# Pentru a putea printa 'frumos' o variabila aleatoare fac overload pentru 'show'
+setMethod("show", signature(object="continuous_rv"), function(object) {
+  num_width <- 12
+  interval <- seq(object@outcome_from, min(object@outcome_from + 9, object@outcome_to), 1)
+  cat("Eveniment:     ")
+  print(noquote(format(interval, width=num_width)))
+  cat("Probabilitate: ")
+  print(noquote(format(Vectorize(object@density_fn, "x")(interval), width=num_width)))
+})
+
+# Se poate da ca parametru orice functie
+sample_dice <- RV(from=1, to=6)
+sample_identity <- RV(from=1, density=function(x) { x })
+sample_parabola <- RV(from=1, to=100, density=function(x) { x^2 })
+
+# Exemple pe functiile de la 4)
+sample_normal_dist <- RV(from=1, density=function(x) { density_normal_distribution(x, m=3, sd=5)  })
+sample_exponential_dist <- RV(from=1, density=function(x) { density_exponential_distribution(x, lambda=2) })
+sample_gamma_dist <- RV(from=1, density=function(x) { density_gamma_distribution(x, shape=2, scale=1/2) })
