@@ -1,5 +1,5 @@
 #PUNCTUL 2
-punctul_2 <- function(f)
+isPDF <- function(f)
 {
   
   check = TRUE
@@ -12,9 +12,9 @@ punctul_2 <- function(f)
     check = FALSE
   }  
   #luam o plaja larga de valori in care sa analizam functia
-  t1 <- seq(-10^(6),10^6,0.01)
+  t1 <- seq(-10^(5),10^5,0.05)
+  x <- sapply(t1, function(x)f(x))
   
-  x <- f(t1)
   if(!all(x >= 0))
   {
     check = FALSE
@@ -22,15 +22,22 @@ punctul_2 <- function(f)
   return (check)
 }
 
-#Exemplu
+#Exemple
+#Exemplul 1
 f1 <- function(x)
 {
  
   if(x>=0 && x<=pi/2) return(cos(x))
-  else return(0)
+  return(0)
 }
-
-punctul_2(f1)
+isPDF(f1)
+#Exemplul 2
+f12 <- function (x)
+{
+  if(x>=-10 && x <= -4) return(-x^2 - x)
+  return(0)
+}
+isPDF(f12)
 
 #PUNCTUL 7
 cdf <- function(f, a)
@@ -198,7 +205,7 @@ marginalY(0.6,fxy3)
 
 
 
-install.packages("stringr")
-install.packages("sets")
+# install.packages("stringr")
+# install.packages("sets")
 library(stringr)
 library(sets)
