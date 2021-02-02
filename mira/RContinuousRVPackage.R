@@ -38,6 +38,37 @@ cdf <- function(f, a)
   return (integrate(Vectorize(f), lower = -Inf, upper = a)$value)
 }
 
+getFunction <- function(r)
+{
+  get(regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*", r)))
+}
+getNumbers <- function(r)
+{
+   t1 <- str_extract_all(r,"(>|>=|<|<=)\\s*[0-9]+([.][0-9]+)*")
+   listOfNr <- sapply(t1, function(x) str_extract_all(x,"[0-9]+([.][0-9]+)*"))
+   rez <- tuple(0)
+   ifelse(sum(lengths(listOfNr)) == 1, rez <- tuple(as.numeric(listOfNr[[1]])), rez <- tuple(as.numeric(listOfNr[[1]]),as.numeric(listOfNr[[2]])))
+   return (rez)
+}
+getOperators <- function(r)
+{
+   listOfOperators <- str_extract_all(r,"(<|>)")
+   rez <- tuple(0)
+   ifelse(lengths(listOfOperators) == 1, rez <- tuple(listOfOperators[[1]][1]), rez <- tuple(listOfOperators[[1]][1],listOfOperators[[1]][2]))
+   return (rez)
+}
+isSimpleExpression <- function(r)
+{
+  (!identical(character(0), regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*\\s*(<|<=|>=|>)\\s*[0-9]+([.][0-9]+)*\\s*$",r))))
+}
+isCompoundExpression <- function(r)
+{
+  (!identical(character(0), regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*\\s*(>|>=|<|<=)\\s*[0-9]+([.][0-9]+)*\\s+(&&|\\|)\\s+[A-Za-z]+[0-9]*\\s*(<|<=|>|>=)\\s*[0-9]+([.][0-9]+)*\\s*$",r))))
+}
+isTypeP <- function(r, type)
+{
+  (!identical(character(0),regmatches(r,regexpr(type,r))))
+}
 
 P <- function(s)
 {
@@ -45,83 +76,71 @@ P <- function(s)
   
   aux <- substitute(s)
   r <- deparse(aux)
-  
-  # P (X < n) si P (X <= n)
-  if(!identical(character(0), regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*\\s*(<|<=)\\s*[0-9]+[.][0-9]+\\s*$",r))))
+ 
+  if(isSimpleExpression(r))
   {
     
-    fct <- get(regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*", r)))
+    fct <- getFunction(r)
+    value <- getNumbers(r)[[1]]
     
-    value <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+", r)))
-    print(value)
-    return (cdf(fct, value))
-  }
-  # P (X > n) si P ( X >= n)
-  if(!identical(character(0), regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*\\s*(>|>=)\\s*[0-9]+[.][0-9]+\\s*$",r))))
-  {
-    
-    fct <- get(regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*", r)))
-    
-    value <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+",r)))
-    print(value)
+    #verificam daca avem </<= sau >/>=
+    if(getOperators(r)[[1]] == "<")
+            return (cdf(fct, value))
     return (1 - cdf(fct, value))
   }
-  # P (X < (sau <=) n && X > (sau >=) m)
-  if(!identical(character(0), regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*\\s*(<|<=)\\s*[0-9]+[.][0-9]+\\s+&&\\s+[A-Za-z]+[0-9]*\\s*(>|>=)\\s*[0-9]+[.][0-9]+\\s*$",r))))
+ 
+  if(isCompoundExpression(r))
   {
     
-    fct <- get(regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*", r)))
-    
-    value1 <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+",r)))
-    value2 <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+\\s*$",r)))
-    
-    return (cdf(fct,value1) - cdf(fct,value2))
-    
-  }
-  # P (X > (sau >=) n && X < (sau <=) n)
-  if(!identical(character(0), regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*\\s*(>|>=)\\s*[0-9]+[.][0-9]+\\s+&&\\s+[A-Za-z]+[0-9]*\\s*(<|<=)\\s*[0-9]+[.][0-9]+\\s*$",r))))
-  {
-    
-    fct <- get(regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*", r)))
-    
-    value1 <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+",r)))
-    value2 <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+\\s*$",r)))
-    
-    return (cdf(fct,value2) - cdf(fct,value1))
-    
-  }
-  ### P (X < (sau <=) n | X > (sau >=) m)
-  if(!identical(character(0), regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*\\s*(<|<=)\\s+[0-9]+[.][0-9]+\\s+|\\s+[A-Za-z]+[0-9]*\\s*(>|>=)\\s*[0-9]+[.][0-9]+\\s*$",r))))
-  {
-    
-    fct <- get(regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*", r)))
-    
-    value1 <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+",r)))
-    value2 <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+\\s*$",r)))
-    return (cdf(fct,value1) - cdf(fct,value2))/cdf(fct,value2)
-    
-  }
-  ### P (X > (sau >=) n | X < (sau <=) m)
-  if(!identical(character(0), regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*\\s*(>|>=)\\s*[0-9]+[.][0-9]+\\s+|\\s+[A-Za-z]+[0-9]*\\s*(<|<=)\\s*[0-9]+[.][0-9]+\\s*$",r))))
-  {
-    
-    fct <- get(regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*", r)))
-    
-    value1 <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+",r)))
-    value2 <- as.numeric(regmatches(r,regexpr("[0-9]+[.][0-9]+\\s*$",r)))
-    return (cdf(fct,value2) - cdf(fct,value1))/cdf(fct,value2)
-    
+    fct <- getFunction(r)
+    values <- getNumbers(r)
+    value1 <- values[[1]]
+    value2 <- values[[2]]
+   
+    #vrem sa consideram toate perechile de operatori posibile (care au sens)
+    #de asemenea, vrem sa vedem daca avem o probabilitate cu && sau conditionata
+  
+       operators <- getOperators(r)
+       result <- ifelse(isTypeP(r,"\\|") && all(operators == tuple(">","<")), ((cdf(fct,value2) - cdf(fct,value1))/cdf(fct,value2)),
+                 ifelse(isTypeP(r,"\\|") && all(operators == tuple("<",">")), ((cdf(fct,value1) - cdf(fct,value2))/(1 - cdf(fct,value2))), 
+                 ifelse(isTypeP(r,"&&") && all(operators == tuple(">","<")), cdf(fct,value2) - cdf(fct,value1),
+                 ifelse(isTypeP(r,"&&") && all(operators == tuple("<",">")), cdf(fct,value1) - cdf(fct,value2),0))))
+                 
+       return (result)
+         
   }
   #pentru cazul in care avem P(X = x) se returneaza 0
   return (0)
 }
 
 #Exemple
-P(f1 >= 0.1 | f1 <0.2)
-P(f1 > 0.4)
-P(f1 <= 0.8)
-P(f1 >= 0.7 && f1 < 0.9)
-P(f1 <= 0.6 && f1 > 0.2)
+
+#Exemplul 1
+P(f1 == 0.2)
+P(f1 >= 0.523)
+P(f1 <= 1.047)
+P(f1 <= 0.785 | f1 > 0.523)
+#Exemplul 2
+
+f2 <- function(x)
+{
+   if(x >= 0 && x <= 1)
+       return (1/beta(2,3)*x*(1-x)^2)
+   return (0)
+}
+
+P(f2 < 0.5)
+P(f2 > 0.33)
+P(f2 <= 0.5 | f2 > 0.25)
+
+#Exemplul 3
+f3 <- function(x)
+{
+  if(x >= 0)
+     return (exp(-x))
+  return (0)
+}
+P(f3 > 1 && f3 < 3)
 
 #PUNCTUL 11
 
@@ -179,4 +198,7 @@ marginalY(0.6,fxy3)
 
 
 
-
+install.packages("stringr")
+install.packages("sets")
+library(stringr)
+library(sets)
