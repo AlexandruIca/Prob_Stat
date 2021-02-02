@@ -5,12 +5,24 @@ author:
     - "Mira Stroie"
     - "Alexandru Ică"
     - "Mihai Badea"
+date: "Grupa 232, proiectul #1"
 toc: true
 output:
     pdf-document:
         template: template.tex
 ---
 \newpage
+
+# Structura Echipei
+Lider: Bianca Stan
+
+Cum ne-am împărțit sarcinile:
+
+- Bianca a rezolvat cerințele 1, 5, 12.
+- Mira a rezolvat cerințele 2, 7, 11.
+- Alexandru a rezolvat cerințele 3 și 4, a realizat documentația și cât de curând trebuie să își găsească
+motivația să facă și pachetul în sine...
+* Mihai a rezolvat ...
 
 # Cerința 1
 
@@ -80,6 +92,8 @@ Niște probleme întâmpinate în timpul rezolvării au fost erorile generate de
 start evidente(de genul 'x and y lengths differ', deși era evident că integrez pe același interval)
 și cele care au apărut când am vrut să integrez funcția dată pe un interval(mi-a luat mult până să îmi dau
 seama că trebuia să scriu: `integrate(...)$value`).
+
+# Cerința 5
 
 # Cerința 7
 
