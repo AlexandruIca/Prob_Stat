@@ -1,3 +1,5 @@
+![Documentation](https://github.com/AlexandruIca/Prob_Stat/workflows/Documentation/badge.svg)
+---
 # Probabilitati si Statistica
 
 ## TODO
