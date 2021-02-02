@@ -41,7 +41,7 @@ Dacă se poate, adică dacă `to` și `from` nu sunt $\pm \infty$, altfel este `
 Pentru a evalua efectiv variabila am supraîncărcat metoda `show`, astfel trebuie doar specificat numele
 variabilei în consolă și se vor afișa valorile ei pe interval(maxim 10):
 ```R
-RV(from=1, to=2)
+> RV(from=1, to=2)
 
 Eveniment:       1   2
 Probabilitate: 0.5 0.5
