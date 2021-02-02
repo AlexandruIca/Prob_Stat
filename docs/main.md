@@ -62,7 +62,6 @@ Probabilitate: 0.5 0.5
 Am scris în comentarii sursele care m-au ajutat în rezolvarea problemei. Pentru exemple m-am folosit de
 aceleași funcții pe care le-am definit și la cerința 4.
 
-\newpage
 # Cerința 4
 Aleasă de Ică Alexandru.\
 \
