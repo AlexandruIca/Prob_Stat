@@ -14,7 +14,7 @@ output:
 \newpage
 
 # Structura Echipei
-Lider: Bianca Stan
+Lider: Stan Bianca-Mihaela
 
 Cum ne-am împărțit sarcinile:
 
@@ -25,6 +25,35 @@ motivația să facă și pachetul în sine...
 * Mihai a rezolvat ...
 
 # Cerința 1
+Aleasă de Stan Bianca-Mihaela.\
+\
+Trebuie sa gasim o constanta de normalizare `C` astfel incat:
+ 1. f(x)>=0 pentru orice x
+ 2.  $$\int_-infty^\infty f(x) \, dx = 1$$\
+\
+Astfel, functia scrisa de mine calculeaza valoarea lui C=$$1/ \int f(x) \, dx $$ (din proprietatea 2). Daca nu s-a impartit la 0, verifica proprietatea 1. Pentru a verifica daca o functie are valori pozitive pe tot codomeniul sau am creat o functie care ia un range mare de valori pentru a analiza comportamentul functiei.
+```
+pozitiva <- function(f)
+{
+  
+  t1 <- seq(-10^(5),10^5,0.05)
+  x <- sapply(t1, function(x)f(x))
+  
+  if(!all(x >=0))
+  {
+    return (FALSE)
+  }
+  return (TRUE)
+}
+```
+Daca constanta de normalizare duce la verificarea acestei proprietati, aceasta este corecta.\
+\
+Am ales exemple pentru fiecare caz:
+- 2 functii pentru care exista constante de normalizare :
+    - f(x)=$$4*x-2*x^2$$ pentru x in intervalul (0,2) si 0 in rest
+    - f(x)=$$x^3*exp(-x/2)$$ pentru x >=0 si 0 in rest
+- o functie divergenta care nu va verifica conditia 2 : functia identitate
+- o functie convergenta dar care are si valori pozitive si negative, astfel incat oricare ar fi valoarea lui C, functia nu poate verifica conditia 1 : functia identitate pe intervalul [-2,1] si 0 in rest
 
 # Cerința 2
 
@@ -93,9 +122,24 @@ start evidente(de genul 'x and y lengths differ', deși era evident că integrez
 seama că trebuia să scriu: `integrate(...)$value`).
 
 # Cerința 5
+Aleasă de Stan Bianca-Mihaela.\
+\
+Am folosit formulele cunoscute pentru medie, dispersie, momentul centrat de ordin r si momentul initial de ordin r:
+- media: $$\int_-infty^\infty x*f(x) \, dx $$\
+- dispersia: $$\int_-infty^\infty (x-E(x))^2*f(x) \, dx $$\
+- momentul centrat de ordin r: $$\int_-infty^\infty (x-E(x))^r*f(x) \, dx $$\
+- momentul initial de ordin r: $$\int_-infty^\infty x^r*f(x) \, dx $$\
 
 # Cerința 7
 
 # Cerința 11
 
 # Cerința 12
+Aleasă de Stan Bianca-Mihaela.\
+\
+Stim ca daca 2 variabile aleatoare continue, X si Y, sunt independente, atunci\
+$$f_[U](u)=\int_-infty^\infty f_X(v)* f_Y(u-v) \, dv $$, unde u=x+y, U=X+Y si v=x\
+si\
+$$f_[U](u)=\int_-infty^\infty f_X(v)* f_Y(v-u) \, dv $$, unde u=x-y, U=X-Y si v=x\
+\
+Folosind aceste formule am construit histograme pentru distributia normala, uniforma si exponentiala.
