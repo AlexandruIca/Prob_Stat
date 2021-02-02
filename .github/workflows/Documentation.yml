@@ -1,0 +1,33 @@
+name: Documentation
+
+on:
+    push:
+        branches: [ master ]
+
+jobs:
+    documentation:
+        runs-on: ubuntu-latest
+
+        steps:
+        - uses: actions/checkout@v2
+
+        - uses: docker://pandoc/core:latest
+          with:
+              args: -i docs/main.md -s -o docs/main.tex --toc --toc-depth=5
+
+        - uses: xu-cheng/latex-action@v2
+          with:
+              pre_compile: |
+                  cd docs/
+              root_file: |
+                  main.tex
+
+        - name: Upload documentation
+          uses: svenstaro/upload-release-action@v2
+          with:
+              repo_token: ${{ secrets.GITHUB_TOKEN }}
+              file: docs/main.pdf
+              asset_name: main.pdf
+              tag: ${{ github.ref }}
+              overwrite: true
+              body: "Documentația"
