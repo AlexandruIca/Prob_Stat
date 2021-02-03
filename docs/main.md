@@ -56,6 +56,18 @@ Am ales exemple pentru fiecare caz:
 - o functie convergenta dar care are si valori pozitive si negative, astfel incat oricare ar fi valoarea lui C, functia nu poate verifica conditia 1 : functia identitate pe intervalul [-2,1] si 0 in rest
 
 # Cerința 2
+Aleasă de Stroie Mira. Pentru rezolvarea cerinței am implementat funcția `isPDF`. `isPDF` verifică dacă o funcție introdusă de utilizator este densitate de probabilitate. Funcția se apelează `isPDF(f)`, unde f reprezintă funcția dată.
+\
+Rezolvarea cerinței se bazează pe următorul fapt teoretic: o funcție f este densitate de probabilitate dacă îndeplinește următoarele condiții:
+$$ f(x) >= 0 $$
+ $$\int_{-infty}^\infty f(x)  dx = 1$$
+\
+Pentru verificarea primei condiții am generat prin intermediul functiei `seq` o secventă largă de valori.
+```R
+ t1 <- seq(-10^(5),10^5,0.005)
+```
+Am calculat valoarea funcției `f` în toate valorile generate, iar apoi am verificat ca toate rezultatele să fie pozitive. Pentru a doua condiție am folosit funcția `integrate`, cu precizarea că, pentru a evita eroriile cu numere reale, am comparat $$abs(integralValue - 1) > 10^{-4}$$. În sursă am dat ca exemplu o funcție densitate de probabilitate discutată în problemele din laborator și o funcție negativă, a cărei integrală e diferită de 1. 
+
 
 # Cerința 3
 Aleasă de Ică Alexandru.\
@@ -132,7 +144,53 @@ Am folosit formulele cunoscute pentru medie, dispersie, momentul centrat de ordi
 
 # Cerința 7
 
+Aleasă de Mira Stroie. Pentru rezolvarea cerinței am implementat functia `P`, asemănătoare funcției `P` din pachetul `discreteRV`. `P` permite calcularea diferitelor tipuri de probabilități asociate unei variabile aleatoare continue. Funcția se apelează `P(eveniment)` unde eveniment reprezintă o expresie logică. Expresia poate fi de forma  `pdf operator valoare`, `pdf operator1 valoare1 && pdf operator2 valoare2`, `pdf operator1 valoare1 | pdf operator2 valoare2`
+unde `pdf` reprezintă densitatea de probabilitate a unei variabile aleatoare continue, iar operatorii pot să fie `<`,`<=`,`>`,`>=` și `==` (doar pentru prima formă).
+Probabilități precum `P(pdf > valoare1 && pdf > valoare2)` și `P( pdf > valoare1 | pdf > valoare2)` nu au fost luate în considerare, întrucât am considerat că implementarea lor este redundantă - ele sunt asociate unor cazuri deja implementate.
+\
+Pentru găsirea probabilității asociate unei variabile aleatoare continue ne-am folosit de funcția de distribuție cumulativă, stiind că $$P(X <= x) = F(x)$$ , 
+unde `X` reprezintă o variabilă aleatoare continuă și `F` funcția de distribuție cumulativă (notată în documentație și `cdf`).
+De-a lungul implementării ne-am folosit de expresiile regulate pentru a identifica tipul de probabilitate pe care trebuie să o calculam. Pentru un string care conține o expresie verificam prima dată dacă expresia este una simplă (`pmf operator valoare`) (cu ajutorul funcției `isSimpleExpression`) sau compusă (condiționată sau cu &&) (cu ajutorul funcției `isCompoundExpression`). Valorile numerice din expresii le preluăm cu ajutorul funcției `getNumbers`, iar operatorii continuți cu `getOperators`. În funcției de operatori și tipul probabilitătii (simplă sau compusă, condiționată sau &&), computăm probabilitatea cu ajutorul `cdf`. În cazul în care am avut o probabilitate de tipul `pmf == valoare`, atunci se returnează 0.
+\
+Două funcții folosite preponderent sunt `regmatches` și `regexpr`. `regexpr` e folosită pentru a identifica unde există un pattern într-un string și pentru a întoarce informație necesară pentru a extrage patternul. În cazul în care patternul nu se găsește, se returnează -1. `regmatches` extrage patternul din string pe baza informației primite de la `regexpr`. În proiect, un exemplu care să ilustreze aceste funcționalități este urmatorul:
+```R
+getFunction <- function(r)
+{
+  get(regmatches(r, regexpr("^\\s*[A-Za-z]+[0-9]*", r)))
+}
+```
+Am folosit funcția `str_extract_all` din pachetul `stringr` pentru a ușura lucrul cu expresii regulate. `str_extract_all` extrage toate substringurile care respecta un pattern dat dintr-un string. În secvența următoare de cod se preiau toate substringurile care conțin un operator urmat de oricâte spații și de un numar (fie el întreg sau nu).
+```R
+getNumbers <- function(r)
+{
+   t1 <- str_extract_all(r,"(>|>=|<|<=)\\s*[0-9]+([.][0-9]+)*")
+   #cod pentru getNumbers
+}
+```
+
+Un alt pachet folosit este `sets`, ce conține structuri de date și funcții de bază pentru mulțimi. De aici am preluat funcția `tuple`, folosită pentru crearea și manipularea unui tuplu. Am folosit tuplurile pentru a returna rezultatele funcțiilor `getNumbers` și `getOperators`.
+
+Am dat în codul sursă atât exemple noi, cât și exemple de probabilități calculate în cadrul laboratorului.
+
+
 # Cerința 11
+
+
+Pentru rezolvarea cerinței am implementat 4 funcții: `marginalX`, `marginalY` și `conditionalX`, `conditionalY`. Primele 2 funcții au 2 parametrii: o valoare în care să fie evaluate și funcția de densitate comună a variabilelor aleatoare X si Y. Ultimele 2 funcții primesc ca parametrii funcția de densitate comună a variabilelor aleatoare X, Y și 2 valori x și y în care funcțiile să fie evaluate. Dat fiind o densitate de probabilitate `fxy`, am calculat densitățiile marginale folosind următoarele formule:\
+$$fy(y)=\int_{-infty}^\infty fxy(x) dx$$
+\
+
+$$fx(x)=\int_{-infty}^\infty fxy(x) dy$$
+\
+unde fy(y) reprezintă densitatea marginală a v.a. Y si fx(x), densitatea marginală a v.a. X.
+Densitățiile conditionate le-am calculat după următoarele formule:\
+$$fx|y(x|y) = fxy(x,y)/fy(y)$$ 
+\
+$$fy|x(y|x) = fxy(x,y)/fx(x)$$
+\
+unde fx|y reprezintă densitatea condiționată a variabilei aleatoare continue X, iar fy|x, densitatea condiționată a lui Y.
+
+Sursele care m-au ajutat la rezolvarea cerinței sunt: [probability course](https://www.probabilitycourse.com/chapter5/5_2_3_conditioning_independence.php), [probability course](https://www.probabilitycourse.com/chapter5/5_2_1_joint_pdf.php), [stackoverflow](https://stackoverflow.com/questions/38123279/integrating-a-function-with-multiple-variables) .
 
 # Cerința 12
 Aleasă de Stan Bianca-Mihaela.\
