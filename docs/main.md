@@ -71,7 +71,7 @@ $$\int_{-\infty}^{\infty} f(x) dx = 1$$
 
 Pentru verificarea primei condiții am generat prin intermediul funcției `seq` o secventă largă de valori.
 ```R
- t1 <- seq(-10^(5),10^5,0.005)
+ t1 <- seq(-10^(5),10^5,0.05)
 ```
 Am calculat valoarea funcției `f` în toate valorile generate, iar apoi am verificat ca toate rezultatele să
 fie pozitive. Pentru a doua condiție am folosit funcția `integrate`, cu precizarea că, pentru a evita
@@ -208,9 +208,9 @@ Un alt pachet folosit este `sets`, ce conține structuri de date și funcții de
 Am dat în codul sursă atât exemple noi, cât și exemple de probabilități calculate în cadrul laboratorului.
 
 # Cerința 11
-Pentru rezolvarea cerinței am implementat 4 funcții: `marginalX`, `marginalY` și `conditionalX`,
-`conditionalY`. Primele 2 funcții au 2 parametrii: o valoare în care să fie evaluate și funcția de densitate
-comună a variabilelor aleatoare X si Y. Ultimele 2 funcții primesc ca parametrii funcția de densitate comună
+Aleasă de Stroie Mira. Pentru rezolvarea cerinței am implementat 4 funcții: `marginalX`, `marginalY` și `conditionalX`,
+`conditionalY`. Primele 2 funcții au 2 parametrii: o valoare în care să fie evaluate și densitatea
+comună a variabilelor aleatoare X si Y. Ultimele 2 funcții primesc ca parametrii densitatea comună
 a variabilelor aleatoare X, Y și 2 valori x și y în care funcțiile să fie evaluate. Dat fiind o densitate
 de probabilitate `fxy`, am calculat densitățiile marginale folosind următoarele formule:
 $$fy(y)=\int_{-infty}^{\infty} fxy(x) dx$$
