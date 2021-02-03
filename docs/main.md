@@ -161,7 +161,6 @@ Aleasă de Badea Mihai.
 
 Am refolosit formulele de la punctul anterior, aplicându-le pe rezultatul compunerii a două funcții, în speță funcția `g` - funcție precizată de utilizator și funcția `f` - funcție densitate de probabilitate aferentă lui `X`.
 
-
 # Cerința 7
 
 Aleasă de Mira Stroie. Pentru rezolvarea cerinței am implementat funcția `P`, asemănătoare funcției `P` din
