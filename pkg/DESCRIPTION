@@ -1,0 +1,26 @@
+Package: VariabileAleatoareContinue
+Title: Variabile Aleatoare Continue
+Version: 0.1
+Authors@R:
+  c(person(given="Bianca",
+           family="Stan",
+           role=c("aut")),
+    person(given = "Mira",
+           family = "Stroie",
+           role = c("aut")),
+    person(given = "Alexandru",
+           family = "Ică",
+           role = c("aut")),
+    person(given = "Mihai",
+           family = "Badea",
+           role = c("aut")))
+Description: Ușurarea Lucrului cu Variabile Aleatoare Continue
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.0.0
+Imports:
+    schoolmath,
+    stringr,
+    sets
