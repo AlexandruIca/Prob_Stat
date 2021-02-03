@@ -212,6 +212,18 @@ Un alt pachet folosit este `sets`, ce conține structuri de date și funcții de
 
 Am dat în codul sursă atât exemple noi, cât și exemple de probabilități calculate în cadrul laboratorului.
 
+# Cerința 10
+
+Aleasă de Badea Mihai
+
+Am folosit formulele cunsocute pentru calculul covarianței și al coeficientului de corelație.
+
+$$Cov(X, Y) = E(XY) - \mu_x \mu_y$$
+
+$$Cor(X, Y) = \frac {Cov(X,Y)}{\sigma_x \sigma_y}$$
+
+
+
 # Cerința 11
 Aleasă de Stroie Mira. Pentru rezolvarea cerinței am implementat 4 funcții: `marginalX`, `marginalY` și `conditionalX`,
 `conditionalY`. Primele 2 funcții au 2 parametrii: o valoare în care să fie evaluate și densitatea
