@@ -18,8 +18,7 @@ Cum ne-am împărțit sarcinile:
 
 - Bianca a rezolvat cerințele 1, 5, 12.
 - Mira a rezolvat cerințele 2, 7, 11.
-- Alexandru a rezolvat cerințele 3 și 4, a realizat documentația și cât de curând trebuie să își găsească
-motivația să facă și pachetul în sine...
+- Alexandru a rezolvat cerințele 3 și 4, a realizat documentația și pachetul în sine
 - Mihai a rezolvat ...
 
 # Cerința 1
