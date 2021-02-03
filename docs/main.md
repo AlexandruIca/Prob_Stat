@@ -19,7 +19,7 @@ Cum ne-am împărțit sarcinile:
 - Bianca a rezolvat cerințele 1, 5, 12.
 - Mira a rezolvat cerințele 2, 7, 11.
 - Alexandru a rezolvat cerințele 3 și 4, a realizat documentația și pachetul în sine
-- Mihai a rezolvat ...
+- Mihai a rezolvat cerințele 6 și 10
 
 # Cerința 1
 Aleasă de Stan Bianca-Mihaela.\
