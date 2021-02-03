@@ -230,9 +230,9 @@ Aleasă de Stroie Mira. Pentru rezolvarea cerinței am implementat 4 funcții: `
 comună a variabilelor aleatoare X si Y. Ultimele 2 funcții primesc ca parametrii densitatea comună
 a variabilelor aleatoare X, Y și 2 valori x și y în care funcțiile să fie evaluate. Dat fiind o densitate
 de probabilitate `fxy`, am calculat densitățiile marginale folosind următoarele formule:
-$$fy(y)=\int_{-infty}^{\infty} fxy(x) dx$$
+$$fy(y)=\int_{-\infty}^{\infty} fxy(x) dx$$
 
-$$fx(x)=\int_{-infty}^{\infty} fxy(x) dy$$
+$$fx(x)=\int_{-\infty}^{\infty} fxy(x) dy$$
 
 unde fy(y) reprezintă densitatea marginală a v.a. `Y` si $fx(x)$, densitatea marginală a v.a. X.
 Densitățiile condiționate le-am calculat după următoarele formule:
