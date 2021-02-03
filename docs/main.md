@@ -6,13 +6,11 @@ author:
     - "Alexandru Ică"
     - "Mihai Badea"
 date: "Grupa 232, proiectul #1"
-toc: true
+toc: false
 output:
     pdf-document:
         template: template.tex
 ---
-\newpage
-
 # Structura Echipei
 Lider: Stan Bianca-Mihaela
 
