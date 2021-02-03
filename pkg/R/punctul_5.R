@@ -33,7 +33,7 @@ functie1<-function(x)
 {
   if(x>0 && x<2)
   {
-    return (0.375*(4*x-2*x^2))
+    return (3/8*(4*x-2*x^2))
   }
   else return(0)
 }
