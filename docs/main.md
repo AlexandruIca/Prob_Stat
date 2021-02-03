@@ -32,7 +32,7 @@ Trebuie să găsim o constantă de normalizare `C` astfel încât:
 1. $f(x)>=0 \ \forall x$
 2. $\int_{-\infty}^{\infty} f(x) dx = 1$
 
-Astfel, functia scrisa de mine calculeaza valoarea lui C=$$\frac{1}{\int f(x) dx}$$ (din proprietatea 2).
+Astfel, functia scrisa de mine calculeaza valoarea lui C=$\frac{1}{\int f(x) dx}$ (din proprietatea 2).
 Daca nu s-a impartit la 0, verifica proprietatea 1. Pentru a verifica daca o functie are valori pozitive pe
 tot codomeniul sau am creat o functie care ia un range mare de valori pentru a analiza comportamentul
 functiei.
