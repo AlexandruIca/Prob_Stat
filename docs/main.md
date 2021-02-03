@@ -62,7 +62,7 @@ Rezolvarea cerinței se bazează pe următorul fapt teoretic: o funcție f este 
 $$ f(x) >= 0 $$
  $$\int_{-infty}^\infty f(x)  dx = 1$$
 \
-Pentru verificarea primei condiții am generat prin intermediul functiei `seq` o secventă largă de valori.
+Pentru verificarea primei condiții am generat prin intermediul funcției `seq` o secventă largă de valori.
 ```R
  t1 <- seq(-10^(5),10^5,0.005)
 ```
@@ -144,7 +144,7 @@ Am folosit formulele cunoscute pentru medie, dispersie, momentul centrat de ordi
 
 # Cerința 7
 
-Aleasă de Mira Stroie. Pentru rezolvarea cerinței am implementat functia `P`, asemănătoare funcției `P` din pachetul `discreteRV`. `P` permite calcularea diferitelor tipuri de probabilități asociate unei variabile aleatoare continue. Funcția se apelează `P(eveniment)` unde eveniment reprezintă o expresie logică. Expresia poate fi de forma  `pdf operator valoare`, `pdf operator1 valoare1 && pdf operator2 valoare2`, `pdf operator1 valoare1 | pdf operator2 valoare2`
+Aleasă de Mira Stroie. Pentru rezolvarea cerinței am implementat funcția `P`, asemănătoare funcției `P` din pachetul `discreteRV`. `P` permite calcularea diferitelor tipuri de probabilități asociate unei variabile aleatoare continue. Funcția se apelează `P(eveniment)` unde eveniment reprezintă o expresie logică. Expresia poate fi de forma  `pdf operator valoare`, `pdf operator1 valoare1 && pdf operator2 valoare2`, `pdf operator1 valoare1 | pdf operator2 valoare2`
 unde `pdf` reprezintă densitatea de probabilitate a unei variabile aleatoare continue, iar operatorii pot să fie `<`,`<=`,`>`,`>=` și `==` (doar pentru prima formă).
 Probabilități precum `P(pdf > valoare1 && pdf > valoare2)` și `P( pdf > valoare1 | pdf > valoare2)` nu au fost luate în considerare, întrucât am considerat că implementarea lor este redundantă - ele sunt asociate unor cazuri deja implementate.
 \
@@ -178,7 +178,7 @@ Am dat în codul sursă atât exemple noi, cât și exemple de probabilități c
 
 Pentru rezolvarea cerinței am implementat 4 funcții: `marginalX`, `marginalY` și `conditionalX`, `conditionalY`. Primele 2 funcții au 2 parametrii: o valoare în care să fie evaluate și funcția de densitate comună a variabilelor aleatoare X si Y. Ultimele 2 funcții primesc ca parametrii funcția de densitate comună a variabilelor aleatoare X, Y și 2 valori x și y în care funcțiile să fie evaluate. Dat fiind o densitate de probabilitate `fxy`, am calculat densitățiile marginale folosind următoarele formule:\
 $$fy(y)=\int_{-infty}^\infty fxy(x) dx$$
-\
+
 
 $$fx(x)=\int_{-infty}^\infty fxy(x) dy$$
 \
