@@ -57,43 +57,33 @@ h = function(x,y)  4*x*y
 cov <- function(h, a,b,c,d)
 {
 
-  tmpx <- function(x,y)
-  {
-    Multiply(f=x, h(x,y))
-  }
+  tmpx <- function(x,y) x*h(x,y)
   
-  mx <- integrate(Vectorize(function(x) { 
+  mx <- integrate(function(x) { 
     sapply(x, function(x) {
-      integrate(Vectorize(function(y) tmpx), c, d)$value
+      integrate(function(y) tmpx(x,y), c, d)$value
     })
-  }), a, b)$value
+  }, a, b)$value
 
-  tmpy <- function(x,y)
-  {
-    Multiply(f=y, h(x,y))
-  }
+  tmpy <- function(x,y) y*h(x,y)
   
-  my <- integrate(Vectorize(function(x) { 
+  my <- integrate(function(x) { 
     sapply(x, function(x) {
-      integrate(Vectorize(function(y) tmpy), c, d)$value
+      integrate(function(y) tmpy(x,y), c, d)$value
     })
-  }), a, b)$value
+  }, a, b)$value
   
   
+  tmpxy <- function(x,y) x*y*h(x,y)
   
-  tmpxy <- function(x,y)
-  {
-    Multiply(f=x*y, h(x,y))
-  }
-  
-  mxy <- integrate(Vectorize(function(x) { 
+  mxy <- integrate(function(x) { 
     sapply(x, function(x) {
-      integrate(Vectorize(function(y) tmpxy), c, d)$value
+      integrate(function(y) tmpxy(x,y), c, d)$value
     })
-  }), a, b)$value
+  }, a, b)$value
   
   
-  mxy - my - mx
+  mxy - my * mx
   
 }
 
